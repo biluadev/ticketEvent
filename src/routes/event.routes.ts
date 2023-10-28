@@ -14,7 +14,7 @@ class EventRoutes {
     }
     initRoutes() {
         //http://localhost:3333/events/
-        this.router.post('/', );
+        this.router.post('/', this.eventController.create.bind(this.eventController));
     }
 }
 

@@ -14,15 +14,15 @@ class App {
         connect();
     }
 
-    initializeRoutes() {
+    private initializeRoutes() {
         this.app.use('/events', this.eventRoutes.router);
     }
 
-    interceptionErro() {
+    private interceptionErro() {
         this.app.use(errorMiddleware);
     }
 
-    middlewaresInitialize() {
+    private middlewaresInitialize() {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));//convert texto em rul. hello world => hello%20world
     }
