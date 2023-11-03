@@ -7,6 +7,9 @@
     "test": "jest",
     "dev": "tsx watch ./src/main.ts"
   },
+  "engines": {
+    "node": "20"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/biluadev/ticketEvent.git"
@@ -20,6 +23,7 @@
   "homepage": "https://github.com/biluadev/ticketEvent#readme",
   "devDependencies": {
     "@types/jest": "^29.5.6",
+    "@types/multer": "^1.4.9",
     "@types/supertest": "^2.0.15",
     "jest": "^29.7.0",
     "supertest": "^6.3.3",
@@ -31,6 +35,7 @@
   "dependencies": {
     "@types/express": "^4.17.19",
     "express": "^4.18.2",
-    "mongoose": "^7.6.1"
+    "mongoose": "^7.6.1",
+    "multer": "^1.4.5-lts.1"
   }
 }

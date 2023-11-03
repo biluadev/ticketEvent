@@ -196,7 +196,7 @@ const config: Config = {
   // watchman: true,
   preset: 'ts-jest',
   maxWorkers: '100%',
-  testMatch: ['**/tests/**/*.test.ts'],
+  testMatch: ['**/tests/**/*.test.ts?(x)'],
 };
 
 export default config;
