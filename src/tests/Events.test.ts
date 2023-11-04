@@ -29,7 +29,7 @@ describe('Event test', () => {
         .field('location[longitude]', event.location.longitude)
         .field('price[sector]', event.price[0].sector)
         .field('price[amount]', event.price[0].amount)
-        .attach('banner', '/Users/jeremias/Downloads/banner.png')
+        .attach('banner', '/Users/jeremias/Downloads/banner.jpg')
         .attach('flyers', '/Users/jeremias/Downloads/flayer1.jpg')
         .attach('flyers', '/Users/jeremias/Downloads/flayer2.jpg');
 

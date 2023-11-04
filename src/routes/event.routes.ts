@@ -29,6 +29,7 @@ class EventRoutes {
         ]),
         this.eventController.create.bind(this.eventController),
         );
+
     }
 }
 

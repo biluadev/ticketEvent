@@ -26,14 +26,14 @@ const eventSchema = new mongoose.Schema({
     city: String,
     participants: {
         type: Array,
-        ref: 'User',
-    },
+        ref: 'User'
+    }
 });
 
 const EventModel = mongoose.model('Event', eventSchema);
 
 class EventRepositoryMongoose implements EventRepository {
-   async add(event: Event): Promise<Event> {
+    async add(event: Event): Promise<Event> {
         const eventModel = new EventModel(event);
 
         await eventModel.save();
