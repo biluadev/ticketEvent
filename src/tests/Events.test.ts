@@ -34,7 +34,7 @@ describe('Event test', () => {
         .attach('flyers', '/Users/jeremias/Downloads/flayer2.jpg');
 
         if(response.error) {
-            console.log("BIBIBI")
+            console.log('file: Events.test.ts:34 ~ it ~ error:', response.error);
         }
 
         expect(response.status).toBe(201);
