@@ -38,6 +38,6 @@ describe('Event test', () => {
         }
 
         expect(response.status).toBe(201);
-        expect(response.body).toEqual({message: 'Evento criado com sucesso.'});
+        expect(response.body).toEqual({message: 'Evento criado com sucesso!'});
     });
 });
