@@ -43,7 +43,6 @@ class EventRepositoryMongoose implements EventRepository {
 
     async findByLocationAndDate(location: Location, date: Date): Promise<Event | undefined> {
         const findEvent = await EventModel.findOne({location, date}).exec();
-        console.log(findEvent);
         
         return findEvent ? findEvent.toObject() : undefined; 
     }
