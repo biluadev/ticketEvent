@@ -42,6 +42,25 @@ class EventUseCase {
         return result;
     }
 
+    async findEventByLocation(latitude: string, longitude: string) {
+        const cityName = await this.getCityNameByCoordinates(latitude, longitude);
+
+        const findEventsByCity = await this.eventRepository.findEventsByCity(cityName);
+
+        const eventWithRadius = findEventsByCity.filter(event => {
+            const distance = this.calculateDistance(
+                Number(latitude),
+                Number(longitude),
+                Number(event.location.latitude),
+                Number(event.location.longitude)
+            )
+
+            return distance <= 3;
+        });
+
+        return eventWithRadius;
+    }
+
     //AIzaSyDc77KQSkLI_q8FecSrTlyFXy-U56hnBs8
     private async getCityNameByCoordinates(latitude: string, longitude: string) {
         try {
@@ -77,6 +96,30 @@ class EventUseCase {
             throw new HttpException(401, 'Error request city name');
         }
 
+    }
+
+    private calculateDistance(
+        latitude1: number,
+        longitude1: number,
+        latitude2: number,
+        longitude2: number
+    ): number {
+        const R = 6371; //Raio da terra em quilômetros
+        const dLatitude = this.deg2rad(latitude2 - latitude1);
+        const dLongitude = this.deg2rad(longitude2 - longitude1);
+        const a = 
+            Math.sin(dLatitude / 2) * Math.sin(dLatitude / 2) + 
+            Math.cos(this.deg2rad(latitude1)) * 
+            Math.cos(this.deg2rad(latitude2)) *
+            Math.sin(dLongitude / 2) *
+            Math.sin(dLongitude / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const d = R * c;
+        return d;
+    }
+
+    private deg2rad(deg: number): number {
+        return deg * (Math.PI / 180);
     }
 }
 

@@ -27,6 +27,20 @@ class EventController {
             next(error);
         }
     }
+
+    async findEventByLocation(request: Request, response: Response, next: NextFunction) {
+        const { latitude, longitude } = request.query
+
+        try {
+            const events = await this.eventUseCase.findEventByLocation(
+                String(latitude),
+                String(longitude)
+            )
+            return response.status(200).json(events)
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export { EventController }

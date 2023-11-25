@@ -3,7 +3,7 @@ import { errorMiddleware } from "../middlewares/error.middlewares";
 import { HttpException } from "../interfaces/HttpExceptions";
 
 describe('Error Middleware', () => {
-    it('should respond with the correct status and message HttpException', () => {
+    it.only('should respond with the correct status and message HttpException', () => {
         const httpException : HttpException = {
             name: 'HttpException',
             status: 404,
@@ -16,14 +16,14 @@ describe('Error Middleware', () => {
             json: jest.fn()
         };
 
-        const next: NextFunction = jest.fn()
+        const next: NextFunction = jest.fn();
 
         errorMiddleware(httpException, req as Request, res as Response, next);
 
-        expect(res.status).toHaveBeenCalledWith(401);
+        expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({
             status: 404,
-            message: 'not found',
+            message: 'Not found',
         });
     });
 });

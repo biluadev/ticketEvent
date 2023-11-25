@@ -30,6 +30,11 @@ class EventRoutes {
         this.eventController.create.bind(this.eventController),
         );
 
+        this.router.get('/', this.eventController.findEventByLocation.bind(this.eventController),
+        );
+
+        this.router.get('/category/:category', this.eventController.findEventsByCategory.bind(this.eventController))
+
     }
 }
 
