@@ -3,6 +3,7 @@ import { EventRepositoryMongoose } from '../repositories/EventRepositoryMongoose
 import { EventUseCase } from '../useCases/EventUseCase';
 import { EventController } from '../controllers/EventController';
 import { upload } from '../infra/multer';
+import { EventRepository } from '../repositories/EventRepository';
 class EventRoutes {
     public router: Router;
     private eventController: EventController;

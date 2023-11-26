@@ -61,6 +61,13 @@ class EventUseCase {
         return eventWithRadius;
     }
 
+    async findEventsByCategory(category: string) {
+        if(!category) throw new HttpException(400, 'Category is required')
+        const events = await this.eventRepository.findEventsByCategory(category)
+
+        return events;
+    }
+
     //AIzaSyDc77KQSkLI_q8FecSrTlyFXy-U56hnBs8
     private async getCityNameByCoordinates(latitude: string, longitude: string) {
         try {
