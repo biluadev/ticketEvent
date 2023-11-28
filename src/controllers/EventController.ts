@@ -62,6 +62,40 @@ class EventController {
             next(error);
         }
     }
+
+    async findEventsByName(
+        request: Request, 
+        response: Response, 
+        next: NextFunction
+        ) {
+        const { name } = request.query
+
+        try {
+            const events = await this.eventUseCase.findEventsByName(
+                String(name),
+            )
+            return response.status(200).json(events)
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async findEventById(
+        request: Request, 
+        response: Response, 
+        next: NextFunction
+        ) {
+        const { id } = request.params
+
+        try {
+            const events = await this.eventUseCase.findEventById(
+                String(id),
+            )
+            return response.status(200).json(events)
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export { EventController }
