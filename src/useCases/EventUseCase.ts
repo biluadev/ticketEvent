@@ -86,6 +86,10 @@ class EventUseCase {
         return events;
     }
 
+    async addParticipant(id: string, name: string, email: string) {
+        
+    }
+
     //AIzaSyDc77KQSkLI_q8FecSrTlyFXy-U56hnBs8
     private async getCityNameByCoordinates(latitude: string, longitude: string) {
         try {

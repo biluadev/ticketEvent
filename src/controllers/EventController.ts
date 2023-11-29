@@ -96,6 +96,23 @@ class EventController {
             next(error);
         }
     }
+
+    async addParticipant(
+        request: Request, 
+        response: Response, 
+        next: NextFunction
+        ) {
+
+        const { name, email } = request.body
+        const { id } = request.params
+
+        try {
+            const events = await this.eventUseCase.addParticipant(id, name, email)
+            return response.status(200).json(events)
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export { EventController }

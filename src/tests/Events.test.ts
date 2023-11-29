@@ -46,43 +46,43 @@ describe('Event test', () => {
     });
 
     it('/GET/:id Get Event By Id', async() => {
-        const event = {
-            title: 'Jorge e Mateus',
-            price: [{sector: 'Pista', amount: '20'}],
-            categories: ['Show'],
-            description: 'Evento descrição',
-            city: 'Belo Horizonte',
-            location: {
-                latitude: '-19.8658619',
-                longitude: '-43.9737064'
-            },
-            coupons: [],
-            date: new Date(),
-            participants: [],
-        };
+
         const response = await request(express)
-        .post('/events')
-        .field('title', event.title)
-        .field('description', event.description)
-        .field('city', event.city)
-        .field('coupons', event.coupons)
-        .field('categories', event.categories)
-        .field('location[latitude]', event.location.latitude)
-        .field('location[longitude]', event.location.longitude)
-        .field('date', event.date.toISOString())
-        .field('price[sector]', event.price[0].sector)
-        .field('price[amount]', event.price[0].amount)
-        .attach('banner', '/Users/jeremias/Downloads/banner.jpg')
-        .attach('flyers', '/Users/jeremias/Downloads/flayer1.jpg')
-        .attach('flyers', '/Users/jeremias/Downloads/flayer2.jpg');
+        .get('/events/6547cc2a60dda6de73a41566');
 
         if(response.error) {
             console.log('file: Events.test.ts:34 ~ it ~ error:', response.error);
         }
 
-        expect(response.status).toBe(201);
-        expect(response.body).toEqual({message: 'Evento criado com sucesso!'});
+        expect(response.status).toBe(200);
     });
+
+    it('/GET/ Event By Location', async() => {
+
+        const response = await request(express)
+        .get('/events?latitude=-19.8658619&longitude=-43.9737064');
+
+        if(response.error) {
+            console.log('file: Events.test.ts:34 ~ it ~ error:', response.error);
+        }
+
+        expect(response.status).toBe(200);
+        expect(response.body.length).toBeGreaterThan(0);
+    });
+
+    it('/GET/ Event By Category', async() => {
+
+        const response = await request(express)
+        .get('/events/category/Show');
+
+        if(response.error) {
+            console.log('file: Events.test.ts:34 ~ it ~ error:', response.error);
+        }
+
+        expect(response.status).toBe(200);
+        expect(response.body.length).toBeGreaterThan(0);
+    });
+
 });
 const eventRepository = {
     add: jest.fn(),
