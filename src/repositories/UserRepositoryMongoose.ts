@@ -3,6 +3,10 @@ import { User } from '../entities/User';
 import { UserRepository } from './UserRepositories';
 
 const userSchema = new mongoose.Schema({
+    _id: {
+        type: String,
+        default: new mongoose.Types.ObjectId().toString(),
+    },
     name: String,
     email: String
 });
@@ -15,6 +19,12 @@ class UserRepositoryMongoose implements UserRepository {
 
         await userModel.save();
         return user;
+    }
+
+    async verifyIsUserExists(email: string):Promise<User | undefined> {
+        const result = await UserModel.findOne({ email }).exec();
+
+        return result ? result.toObject() : undefined;
     }
 }
 

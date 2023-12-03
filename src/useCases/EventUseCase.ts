@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Event } from '../entities/Event';
 import { HttpException } from '../interfaces/HttpExceptions';
 import { EventRepository } from '../repositories/EventRepository';
+import { UserRepositoryMongoose } from '../repositories/UserRepositoryMongoose';
 class EventUseCase {
     constructor(private eventRepository: EventRepository) { }
 
@@ -87,7 +88,34 @@ class EventUseCase {
     }
 
     async addParticipant(id: string, name: string, email: string) {
-        
+        const event = await this.eventRepository.findEventById(id)
+
+        if(!event) throw new HttpException(400, 'Event Not Found!')
+
+        const userRepository = new UserRepositoryMongoose()
+        const participant = {
+            name,
+            email
+        };
+
+        let user: any = {}
+        const verifyIsUserExists = await userRepository.verifyIsUserExists(email)
+        if (!verifyIsUserExists){
+
+            user = userRepository.add(participant);
+
+        }else{
+            user = verifyIsUserExists
+        }
+
+        if(event.participants.includes(user._id))
+        throw new HttpException(409, "User already exist")
+
+        event.participants.push(user._id);
+
+        const updateEvent = await this.eventRepository.update(event, id);
+
+        return event;
     }
 
     //AIzaSyDc77KQSkLI_q8FecSrTlyFXy-U56hnBs8

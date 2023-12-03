@@ -2,6 +2,7 @@ import request from 'supertest'
 import { App } from '../app';
 import { EventUseCase } from '../useCases/EventUseCase';
 import { Event } from '../entities/Event';
+import crypto from 'node:crypto';
 
 const app = new App()
 const express = app.app
@@ -83,6 +84,21 @@ describe('Event test', () => {
         expect(response.body.length).toBeGreaterThan(0);
     });
 
+    it('/POST event insert user', async() => {
+
+        const response = await request(express)
+        .post('/events/6547cc2a60dda6de73a41566/participants').send({
+            name: 'Bilua',
+            email: crypto.randomBytes(20).toString('hex')+'@teste.com'
+        });
+
+        if(response.error) {
+            console.log('file: Events.test.ts:34 ~ it ~ error:', response.error);
+        }
+
+        expect(response.status).toBe(200);
+    });
+
 });
 const eventRepository = {
     add: jest.fn(),
@@ -90,7 +106,8 @@ const eventRepository = {
     findByLocationAndDate: jest.fn(),
     findEventsByCity: jest.fn(),
     findEventsByName: jest.fn(),
-    findEventById: jest.fn()
+    findEventById: jest.fn(),
+    update: jest.fn()
 }
 const eventUseCase = new EventUseCase(eventRepository);
 const event:Event = {
