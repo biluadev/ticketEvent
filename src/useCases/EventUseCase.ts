@@ -80,7 +80,7 @@ class EventUseCase {
         return events;
     }
 
-    async findEventById(id: string) {
+    async findEventsById(id: string) {
         if(!id) throw new HttpException(400, 'Id is required')
         const events = await this.eventRepository.findEventById(id)
 
@@ -109,7 +109,7 @@ class EventUseCase {
         }
 
         if(event.participants.includes(user._id))
-        throw new HttpException(409, "User already exist")
+        throw new HttpException(400, "User already exist")
 
         event.participants.push(user._id);
 

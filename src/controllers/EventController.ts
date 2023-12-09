@@ -80,7 +80,7 @@ class EventController {
         }
     }
 
-    async findEventById(
+    async findEventsById(
         request: Request, 
         response: Response, 
         next: NextFunction
@@ -88,7 +88,7 @@ class EventController {
         const { id } = request.params
 
         try {
-            const events = await this.eventUseCase.findEventById(
+            const events = await this.eventUseCase.findEventsById(
                 String(id),
             )
             return response.status(200).json(events)

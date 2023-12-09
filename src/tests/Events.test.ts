@@ -156,7 +156,7 @@ describe('Unit Test', () => {
 
         eventRepository.findEventById.mockResolvedValueOnce(event);
 
-        const result = await eventUseCase.findEventById('6547cc2a60dda6de73a41566');
+        const result = await eventUseCase.findEventsById('6547cc2a60dda6de73a41566');
         console.log(result);
 
         expect(result).toEqual(event);
