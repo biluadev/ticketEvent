@@ -40,7 +40,8 @@ class EventUseCase {
 
         eventData = {
             ...eventData,
-            city: cityName,
+            city: cityName.cityName,
+            formattedAddress: cityName.formattedAddress,
         }
 
         const result = await this.eventRepository.add(eventData);
@@ -50,7 +51,7 @@ class EventUseCase {
     async findEventByLocation(latitude: string, longitude: string) {
         const cityName = await this.getCityNameByCoordinates(latitude, longitude);
 
-        const findEventsByCity = await this.eventRepository.findEventsByCity(cityName);
+        const findEventsByCity = await this.eventRepository.findEventsByCity(cityName.cityName);
 
         const eventWithRadius = findEventsByCity.filter(event => {
             const distance = this.calculateDistance(
@@ -143,8 +144,12 @@ class EventUseCase {
                         type.types.includes('political'),
                 );
 
+                const formattedAddress = response.data.results[0].formatted_address;
                 // console.log(cityType)
-                return cityType.long_name;
+                return {
+                    cityName: cityType.long_name,
+                    formattedAddress,
+                };
             }
 
             throw new HttpException(404, 'City not found');

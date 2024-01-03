@@ -25,6 +25,7 @@ const eventSchema = new mongoose.Schema({
     },
 
     city: String,
+    formattedAddress: String,
     participants: {
         type: Array,
         ref: 'User'
